@@ -1,0 +1,98 @@
+{
+  "entities": {
+    "Report": {
+      "title": "Report",
+      "description": "A reported civic issue such as pothole, drainage blocker, or hazard.",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["pothole", "drainage", "waste", "hazard"],
+          "description": "The category of civic grievance."
+        },
+        "severity": {
+          "type": "string",
+          "enum": ["low", "medium", "high"],
+          "description": "Emergency rating of the issue."
+        },
+        "status": {
+          "type": "string",
+          "enum": ["pending", "in-progress", "resolved"],
+          "description": "Current workflow state of the report."
+        },
+        "location": {
+          "type": "object",
+          "description": "The geographical placement of the report."
+        },
+        "reporterId": {
+          "type": "string",
+          "description": "UID of the citizen reporter."
+        },
+        "createdAt": {
+          "type": "object",
+          "description": "Creation server timestamp."
+        },
+        "updatedAt": {
+          "type": "object",
+          "description": "Update server timestamp."
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "Illustration URL of the reported issue."
+        },
+        "description": {
+          "type": "string",
+          "description": "Brief literal feedback about the hazard."
+        },
+        "tags": {
+          "type": "array",
+          "description": "Technical categorizations generated."
+        },
+        "comments": {
+          "type": "array",
+          "description": "Chronological comments on report updates."
+        }
+      },
+      "required": ["type", "severity", "status", "location", "reporterId", "description", "tags", "comments"]
+    },
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User profile containing roles and rewards.",
+      "type": "object",
+      "properties": {
+        "displayName": {
+          "type": "string",
+          "description": "Full name of the user."
+        },
+        "email": {
+          "type": "string",
+          "description": "Primary communication address."
+        },
+        "role": {
+          "type": "string",
+          "enum": ["citizen", "admin"],
+          "description": "Context role permissions."
+        },
+        "coins": {
+          "type": "number",
+          "description": "RoadSense coin balance for rewards."
+        },
+        "createdAt": {
+          "type": "number",
+          "description": "Epoch initialization epoch."
+        }
+      },
+      "required": ["displayName", "email", "role", "coins", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/reports/{reportId}": {
+      "schema": "Report",
+      "description": "Collection of tracked road and infrastructure issues."
+    },
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "Collection of registered citizen and admin profiles."
+    }
+  }
+}
